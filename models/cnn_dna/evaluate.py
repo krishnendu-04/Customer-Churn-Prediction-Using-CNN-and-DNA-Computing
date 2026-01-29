@@ -1,21 +1,27 @@
-from sklearn.metrics import accuracy_score
 
-def evaluate_model(model, X_test, y_test):
+import numpy as np
+from sklearn.metrics import (
+    accuracy_score,
+    precision_score,
+    recall_score,
+    f1_score,
+    confusion_matrix
+)
+
+def evaluate_model(model, X_test, y_test, threshold=0.5):
     """
-    Evaluates CNN model using different probability thresholds.
+    Evaluates CNN model using multiple classification metrics.
     """
 
-    y_pred_prob = model.predict(X_test)
+    y_pred_prob = model.predict(X_test).flatten()
+    y_pred = (y_pred_prob >= threshold).astype(int)
 
-    best_accuracy = 0
-    best_threshold = 0.5
+    metrics = {
+        "accuracy": accuracy_score(y_test, y_pred),
+        "precision": precision_score(y_test, y_pred, zero_division=0),
+        "recall": recall_score(y_test, y_pred, zero_division=0),
+        "f1_score": f1_score(y_test, y_pred, zero_division=0),
+        "confusion_matrix": confusion_matrix(y_test, y_pred)
+    }
 
-    for threshold in [0.3, 0.4, 0.5, 0.6, 0.7]:
-        y_pred = (y_pred_prob >= threshold).astype(int)
-        acc = accuracy_score(y_test, y_pred)
-
-        if acc > best_accuracy:
-            best_accuracy = acc
-            best_threshold = threshold
-
-    return best_accuracy, best_threshold
+    return metrics
