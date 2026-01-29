@@ -1,3 +1,4 @@
+
 import pandas as pd
 
 def map_ott_features(df: pd.DataFrame) -> pd.DataFrame:
@@ -51,3 +52,14 @@ def map_ott_features(df: pd.DataFrame) -> pd.DataFrame:
     ) / 2
 
     return mapped_df
+
+#testcode
+"""import pandas as pd
+from preprocessing.feature_mapping import map_ott_features
+
+df = pd.read_csv("data/raw/ott/train.csv")
+
+mapped_df = map_ott_features(df)
+
+print(mapped_df.head())
+"""

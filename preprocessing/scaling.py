@@ -3,10 +3,9 @@ import pandas as pd
 from sklearn.preprocessing import MinMaxScaler
 
 def scale_features(train_df: pd.DataFrame, test_df: pd.DataFrame = None):
-    """
-    Scales unified churn features using Min-Max scaling.
-    Fit on train data, apply to test data.
-    """
+
+    """Scales unified churn features using Min-Max scaling,
+        Fit on train data, apply to test data."""
 
     feature_cols = [
         "Tenure",
