@@ -1,3 +1,5 @@
+import pandas as pd
+
 def map_ott_features(df: pd.DataFrame) -> pd.DataFrame:
     mapped_df = pd.DataFrame()
 
