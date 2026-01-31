@@ -139,8 +139,8 @@ risk_priority = {
 test_results["RiskPriority"] = test_results["RiskTier"].map(risk_priority)
 
 # Sort:
-# 1️⃣ RiskPriority (High → Safe)
-# 2️⃣ ChurnProbability (High → Low)
+#RiskPriority (High → Safe)
+#ChurnProbability (High → Low)
 test_results = test_results.sort_values(
     by=["RiskPriority", "ChurnProbability"],
     ascending=[True, False]
