@@ -22,6 +22,6 @@ def evaluate_model(model, X_test, y_test, threshold=0.5):
         "recall": recall_score(y_test, y_pred, zero_division=0),
         "f1_score": f1_score(y_test, y_pred, zero_division=0),
         "confusion_matrix": confusion_matrix(y_test, y_pred)
+    
     }
-
     return metrics
