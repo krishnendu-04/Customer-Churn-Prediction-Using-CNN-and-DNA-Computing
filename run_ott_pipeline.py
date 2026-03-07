@@ -69,7 +69,35 @@ X_train_dna = reshape_for_cnn(X_train_dna)
 X_test_dna = reshape_for_cnn(X_test_dna)
 
 # 6. Train model
-model, history = train_model(X_train_dna, y_train)
+from sklearn.model_selection import train_test_split
+
+# Split BEFORE training
+X_tr, X_val, y_tr, y_val = train_test_split(
+    X_train_dna,
+    y_train,
+    test_size=0.2,
+    random_state=42,
+    stratify=y_train   # VERY IMPORTANT for imbalance
+)
+
+# Train only on training split
+model, history = train_model(X_tr, y_tr)
+
+# Evaluate on validation split
+print("\n================ FINAL MODEL EVALUATION ================\n")
+
+metrics = evaluate_model(model, X_val, y_val, threshold=0.4)
+
+print(f"Accuracy  : {metrics['accuracy']:.4f}")
+print(f"Precision : {metrics['precision']:.4f}")
+print(f"Recall    : {metrics['recall']:.4f}")
+print(f"F1 Score  : {metrics['f1_score']:.4f}")
+
+print("\nConfusion Matrix:")
+print(metrics["confusion_matrix"])
+
+print("\n========================================================\n")
+
 
 # Predict churn probabilities for test data
 y_pred_prob = model.predict(X_test_dna)
@@ -122,6 +150,7 @@ test_results["ExpectedRetentionGain"] = [
 test_results["StrategyCostLevels"] = [
     i["StrategyCostLevels"] for i in business_impact_list
 ]
+
 
 
 

@@ -8,7 +8,7 @@ from sklearn.metrics import (
     confusion_matrix
 )
 
-def evaluate_model(model, X_test, y_test, threshold=0.5):
+def evaluate_model(model, X_test, y_test, threshold=0.3):
     """
     Evaluates CNN model using multiple classification metrics.
     """
